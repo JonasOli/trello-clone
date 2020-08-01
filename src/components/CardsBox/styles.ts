@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { colors } from "../../Utils/colors";
+import { colors } from "../../Utils/defaultStyles";
 
 export const CardsBoxContainer = styled.article<any>`
-  background-color: ${({ isOver }) => (isOver ? "#cecece" : colors.lightGray)};
+  background-color: ${({ isOver }) =>
+    isOver ? colors.hoverBackground : colors.lightGray};
   width: 27rem;
   height: fit-content;
   margin-left: 1rem;
@@ -21,4 +22,20 @@ export const CardsBoxContainer = styled.article<any>`
 
 export const DropZoneContainer = styled.section`
   padding: 1rem;
+`;
+
+export const AddCardButton = styled.button`
+  margin: 0.5rem;
+  text-align: left;
+  padding: 0.5rem;
+  border: 0;
+  cursor: pointer;
+  color: ${colors.buttonColor};
+  border-radius: 3px;
+  font-size: 14px;
+  background-color: transparent;
+
+  &:hover {
+    background-color: ${colors.hoverBackground};
+  }
 `;

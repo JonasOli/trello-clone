@@ -1,7 +1,7 @@
 import React from "react";
 import { useDrag } from "react-dnd";
 import { ItemType } from "../../Enums/ItemType";
-import { CardContainer } from "./styles";
+import { CardContainer, CardContent } from "./styles";
 
 interface IProps {
   content: string;
@@ -20,7 +20,7 @@ export const Card = ({ content, cardId }: IProps) => {
       className="card-container"
       isDragging={isDragging}
     >
-      {content}
+      <CardContent>{content}</CardContent>
     </CardContainer>
   );
 };

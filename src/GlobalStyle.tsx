@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { colors } from "./Utils/colors";
+import { colors } from "./Utils/defaultStyles";
 
 export default createGlobalStyle`
   * {
@@ -13,6 +13,7 @@ export default createGlobalStyle`
     height: 100%;
     font-size: 10px;
     background-color: ${colors.lightBlue};
+    color: ${colors.fontColor};
 
     @media(max-width: 768px) {
       font-size: 5px;
@@ -25,6 +26,6 @@ export default createGlobalStyle`
   }
 
   body, input, button {
-    font-family: -apple-system, BlinkMacSystemFont, SF Pro Text, Arial, sans-serif;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
   }
 `;
