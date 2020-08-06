@@ -1,6 +1,6 @@
 # Trello clone
 
-A simple project using react-dnd tring to emulate the behavior of trello.
+A simple project using react-dnd trying to emulate the behavior of trello.
 
 ## Tecnologies and packages
 
