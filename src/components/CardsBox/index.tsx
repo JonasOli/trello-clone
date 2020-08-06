@@ -24,7 +24,7 @@ export const CardsBox = ({ title, changeCardStatus, children }: IProps) => {
 
       <DropZoneContainer>{children}</DropZoneContainer>
 
-      {addCard && <AddCard></AddCard>}
+      {addCard && <AddCard onCancel={() => setAddCard(false)} />}
 
       {!addCard && (
         <AddCardButton onClick={() => setAddCard(true)}>

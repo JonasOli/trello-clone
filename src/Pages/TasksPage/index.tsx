@@ -29,7 +29,23 @@ export const TaskPage = () => {
   function changeCardStatus(cardId: string, cardStatus: TaskType) {
     const task = tasks.filter((task) => task.id === cardId);
     task[0].type = cardStatus;
-    setTasks(tasks.filter((task) => task.id !== cardId).concat(task));
+
+    setTasks((prevState) => {
+      const newItems = prevState
+        .filter((task) => task.id !== cardId)
+        .concat(task);
+      return [...newItems];
+    });
+  }
+
+  function moveItem(dragIndex: number, hoverIndex: number) {
+    const item = tasks[dragIndex];
+
+    setTasks((prevState) => {
+      const newItems = prevState.filter((_, index) => index !== dragIndex);
+      newItems.splice(hoverIndex, 0, item);
+      return newItems;
+    });
   }
 
   return (
@@ -43,8 +59,14 @@ export const TaskPage = () => {
         >
           {tasks
             .filter((task) => task.type === TaskType.TO_DO)
-            .map((task) => (
-              <Card key={task.id} cardId={task.id} content={task.content} />
+            .map((task, index) => (
+              <Card
+                key={task.id}
+                cardId={task.id}
+                content={task.content}
+                moveItem={moveItem}
+                index={index}
+              />
             ))}
         </CardsBox>
         <CardsBox
@@ -55,8 +77,14 @@ export const TaskPage = () => {
         >
           {tasks
             .filter((task) => task.type === TaskType.DOING)
-            .map((task) => (
-              <Card key={task.id} cardId={task.id} content={task.content} />
+            .map((task, index) => (
+              <Card
+                key={task.id}
+                cardId={task.id}
+                content={task.content}
+                moveItem={moveItem}
+                index={index}
+              />
             ))}
         </CardsBox>
         <CardsBox
@@ -67,8 +95,14 @@ export const TaskPage = () => {
         >
           {tasks
             .filter((task) => task.type === TaskType.DONE)
-            .map((task) => (
-              <Card key={task.id} cardId={task.id} content={task.content} />
+            .map((task, index) => (
+              <Card
+                key={task.id}
+                cardId={task.id}
+                content={task.content}
+                moveItem={moveItem}
+                index={index}
+              />
             ))}
         </CardsBox>
       </TaskPageContainer>

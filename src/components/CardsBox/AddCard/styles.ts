@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { styles } from "../../../Utils/defaultStyles";
+import { styles, colors } from "../../../Utils/defaultStyles";
 
 export const AddCardContainer = styled.article`
   display: flex;
@@ -9,13 +9,32 @@ export const AddCardContainer = styled.article`
   .buttons-container {
     display: flex;
 
+    .add-card-button,
+    .cancel-card-button {
+      padding: 0.5rem;
+      border: 0;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
     .add-card-button {
       width: 8rem;
       margin-right: 0.5rem;
+      background-color: #5aac44;
+      color: #fff;
+
+      &:hover {
+        background-color: #64bf4b;
+      }
     }
 
     .cancel-card-button {
-      width: 20%;
+      color: ${colors.fontColor};
+      width: 3rem;
+
+      &:hover {
+        background-color: ${colors.hoverBackground};
+      }
     }
   }
 `;

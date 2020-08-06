@@ -1,15 +1,20 @@
 import React from "react";
-import { Button } from "../../Button";
 import { AddCardContainer, AddCardTextArea } from "./styles";
 
-export const AddCard = () => {
+interface IProps {
+  onCancel: () => void;
+}
+
+export const AddCard = ({ onCancel }: IProps) => {
   return (
     <AddCardContainer>
       <AddCardTextArea placeholder="Enter a title for this card..." rows={3} />
 
       <section className="buttons-container">
-        <Button className="add-card-button" type="add">Add Card</Button>
-        <Button className="cancel-card-button" type="primary">X</Button>
+        <button className="add-card-button">Add Card</button>
+        <button className="cancel-card-button" onClick={onCancel}>
+          X
+        </button>
       </section>
     </AddCardContainer>
   );
