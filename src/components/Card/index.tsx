@@ -49,7 +49,7 @@ export const Card = ({ index, moveItem, cardData }: IProps) => {
       type: ItemType.CARD,
       id: cardData.id,
       index,
-      status: cardData.status,
+      status: cardData.type,
     },
     collect: (monitor) => ({ isDragging: !!monitor.isDragging() }),
   });

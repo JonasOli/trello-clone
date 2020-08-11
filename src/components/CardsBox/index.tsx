@@ -8,7 +8,7 @@ import { TaskType } from "../../Enums/TaskType";
 interface IProps {
   title: string;
   children: any;
-  changeCardStatus: (cardId: string) => void;
+  changeCardStatus: (cardId: string, cardStatus: TaskType) => void;
   status: TaskType;
 }
 
@@ -24,7 +24,7 @@ export const CardsBox = ({
     canDrop: (item) => {
       return item.status !== status;
     },
-    drop: (item: any) => changeCardStatus(item.id),
+    drop: (item: any) => changeCardStatus(item.id, status),
     collect: (monitor) => ({ isOver: !!monitor.isOver() }),
   });
 

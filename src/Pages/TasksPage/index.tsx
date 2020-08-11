@@ -7,7 +7,7 @@ import { CardsBox } from "../../components/CardsBox";
 import { TaskType } from "../../Enums/TaskType";
 import { TaskPageContainer } from "./styles";
 
-export const data = [
+const data = [
   {
     id: uuidv4(),
     content: "go to the market",
@@ -16,7 +16,7 @@ export const data = [
   {
     id: uuidv4(),
     content: "cooking",
-    type: TaskType.DOING,
+    type: TaskType.TO_DO,
   },
   {
     id: uuidv4(),
@@ -25,11 +25,19 @@ export const data = [
   },
 ];
 
+export const statuses = [
+  { type: TaskType.TO_DO, title: "To do" },
+  { type: TaskType.DOING, title: "Doing" },
+  { type: TaskType.DONE, title: "Done" },
+];
+
 export const TaskPage = () => {
   const [tasks, setTasks] = useState(data);
 
   function changeCardStatus(cardId: string, cardStatus: TaskType) {
     const task = tasks.filter((task) => task.id === cardId);
+
+    if (task[0].type === cardStatus) return;
 
     setTasks((prevState) => {
       const newItems = prevState
@@ -43,9 +51,10 @@ export const TaskPage = () => {
     const task = tasks[dragIndex];
 
     setTasks((prevState) => {
-      const newItems = prevState.filter((i, idx) => idx !== dragIndex);
-      newItems.splice(hoverIndex, 0, task);
-      return [...newItems];
+      prevState.splice(dragIndex, 1);
+      prevState.splice(hoverIndex, 0, task);
+
+      return [...prevState];
     });
   }
 
@@ -56,60 +65,27 @@ export const TaskPage = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <TaskPageContainer>
-        <CardsBox
-          title="To do"
-          changeCardStatus={(cardId: string) =>
-            changeCardStatus(cardId, TaskType.TO_DO)
-          }
-          status={TaskType.TO_DO}
-        >
-          {tasks
-            .filter((task) => task.type === TaskType.TO_DO)
-            .map((task) => (
-              <Card
-                key={task.id}
-                cardData={task}
-                moveItem={moveItem}
-                index={getIndex(task.id)}
-              />
-            ))}
-        </CardsBox>
-        <CardsBox
-          title="Doing"
-          changeCardStatus={(cardId: string) =>
-            changeCardStatus(cardId, TaskType.DOING)
-          }
-          status={TaskType.DOING}
-        >
-          {tasks
-            .filter((task) => task.type === TaskType.DOING)
-            .map((task) => (
-              <Card
-                key={task.id}
-                cardData={task}
-                moveItem={moveItem}
-                index={getIndex(task.id)}
-              />
-            ))}
-        </CardsBox>
-        <CardsBox
-          title="Done"
-          changeCardStatus={(cardId: string) =>
-            changeCardStatus(cardId, TaskType.DONE)
-          }
-          status={TaskType.DONE}
-        >
-          {tasks
-            .filter((task) => task.type === TaskType.DONE)
-            .map((task) => (
-              <Card
-                key={task.id}
-                cardData={task}
-                moveItem={moveItem}
-                index={getIndex(task.id)}
-              />
-            ))}
-        </CardsBox>
+        {statuses.map((status, index) => {
+          return (
+            <CardsBox
+              key={index}
+              title={status.title}
+              changeCardStatus={changeCardStatus}
+              status={status.type}
+            >
+              {tasks
+                .filter((task) => task.type === status.type)
+                .map((task, index) => (
+                  <Card
+                    key={task.id}
+                    cardData={task}
+                    moveItem={moveItem}
+                    index={getIndex(task.id)}
+                  />
+                ))}
+            </CardsBox>
+          );
+        })}
       </TaskPageContainer>
     </DndProvider>
   );
