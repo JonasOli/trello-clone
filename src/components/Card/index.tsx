@@ -4,13 +4,12 @@ import { ItemType } from "../../Enums/ItemType";
 import { CardContainer, CardContent } from "./styles";
 
 interface IProps {
-  content: string;
-  cardId: string;
   index: number;
   moveItem: (dragIndex: number, hoverIndex: number) => void;
+  cardData: any;
 }
 
-export const Card = ({ content, cardId, index, moveItem }: IProps) => {
+export const Card = ({ index, moveItem, cardData }: IProps) => {
   const ref = useRef(null);
   const [, drop] = useDrop({
     accept: ItemType.CARD,
@@ -46,7 +45,12 @@ export const Card = ({ content, cardId, index, moveItem }: IProps) => {
     },
   });
   const [{ isDragging }, drag] = useDrag({
-    item: { type: ItemType.CARD, id: cardId, index },
+    item: {
+      type: ItemType.CARD,
+      id: cardData.id,
+      index,
+      status: cardData.status,
+    },
     collect: (monitor) => ({ isDragging: !!monitor.isDragging() }),
   });
 
@@ -54,7 +58,7 @@ export const Card = ({ content, cardId, index, moveItem }: IProps) => {
 
   return (
     <CardContainer ref={ref} className="card-container" isDragging={isDragging}>
-      <CardContent>{content}</CardContent>
+      <CardContent>{cardData.content}</CardContent>
     </CardContainer>
   );
 };
