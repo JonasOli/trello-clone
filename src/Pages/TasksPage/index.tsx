@@ -16,7 +16,7 @@ const data = [
   {
     id: uuidv4(),
     content: "cooking",
-    type: TaskType.TO_DO,
+    type: TaskType.DOING,
   },
   {
     id: uuidv4(),
@@ -36,8 +36,6 @@ export const TaskPage = () => {
 
   function changeCardStatus(cardId: string, cardStatus: TaskType) {
     const task = tasks.filter((task) => task.id === cardId);
-
-    if (task[0].type === cardStatus) return;
 
     setTasks((prevState) => {
       const newItems = prevState
